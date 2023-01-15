@@ -4,6 +4,8 @@ import utilStyles from '/styles/utils.module.css'
 import Link from 'next/link'
 import {getSortedPostsData} from "../lib/posts";
 import Layout from "../components/layout";
+import Date from '../components/date'
+
 
 export async function getStaticProps() {
     const allPostsData = getSortedPostsData();
@@ -24,7 +26,7 @@ export default function Home({allPostsData}) {
 
             <main>
                 <h1 className={styles.title}>
-                    Read <Link href="/posts/first-post">this page!</Link>
+                    Welcome!
                 </h1>
 
                 <p className={styles.description}>
@@ -134,11 +136,11 @@ export default function Home({allPostsData}) {
                 <ul className={utilStyles.list}>
                     {allPostsData.map(({id, date, title}) => (
                         <li className={utilStyles.listItem} key={id}>
-                            {title}
+                            <Link href={`/posts/${id}`}>{title}</Link>
                             <br/>
-                            {id}
-                            <br/>
-                            {date}
+                            <small className={utilStyles.lightText}>
+                                <Date dateString={date}></Date>
+                            </small>
                         </li>
                     ))}
                 </ul>
